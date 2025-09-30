@@ -1,0 +1,53 @@
+{
+  "name": "webcreate",
+  "private": true,
+  "version": "0.1.0",
+  "license": "MIT",
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "services/*"
+  ],
+  "scripts": {
+    "bootstrap": "pnpm -w install && pnpm -w exec sh -c 'node ./scripts/postinstall.js || true'",
+    "dev": "pnpm -C apps/console dev",
+    "gen:example": "node ./scripts/gen-example.js",
+    "mcp:scaffold": "pnpm -C packages/mcp-tools scaffold_project",
+    "mcp:fill": "pnpm -C packages/mcp-tools fill_copy",
+    "mcp:deploy": "pnpm -C packages/mcp-tools deploy_vercel",
+    "mcp:push": "pnpm -C packages/mcp-tools commit_push",
+    "lint": "eslint . --ext .ts,.tsx,.js,.jsx --max-warnings=0",
+    "typecheck": "tsc -b tsconfig.base.json",
+    "build": "sh ./scripts/build-all.sh",
+    "build:packages": "pnpm -w -r --parallel run build",
+    "ci": "pnpm -w -s lint && pnpm -w -s typecheck && pnpm -w -s build"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^9.0.13",
+    "@types/node": "^20.11.0",
+    "@types/react": "^18.2.21",
+    "@typescript-eslint/eslint-plugin": "^6.6.0",
+    "@typescript-eslint/parser": "^6.6.0",
+    "eslint": "^8.50.0",
+    "eslint-plugin-next": "^0.0.0",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "husky": "^8.0.0",
+    "lint-staged": "^14.0.0",
+    "pnpm": "^8.0.0",
+    "prettier": "^2.8.8",
+    "turbo": "^1.6.5",
+    "typescript": "5.3.3"
+  },
+  "lint-staged": {
+    "**/*.{ts,tsx,js,jsx}": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npx lint-staged"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "@webcreate/mcp-tools",
+  "version": "0.1.0",
+  "private": true,
+  "bin": {
+    "scaffold_project": "dist/bin/scaffold_project.js",
+    "fill_copy": "dist/bin/fill_copy.js",
+    "deploy_vercel": "dist/bin/deploy_vercel.js",
+    "commit_push": "dist/bin/commit_push.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "fs-extra": "^11.1.1"
+  }
+}

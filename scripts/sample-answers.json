@@ -1,0 +1,10 @@
+{
+  "businessName": "Sakura Bakery",
+  "tagline": "Fresh bread baked daily",
+  "description": "A family-owned bakery serving artisan breads and pastries in Tokyo.",
+  "locale": "ja",
+  "primaryColor": "#e11d48",
+  "contactEmail": "info@sakurabakery.jp",
+  "services": ["Bread", "Pastries", "Cakes"],
+  "slug": "sakura-bakery"
+}
