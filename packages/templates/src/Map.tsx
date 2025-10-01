@@ -8,11 +8,16 @@ export default function Map({ address }: { address?: string }) {
       <div style={{ height: 300 }} className="w-full">
         <iframe title="map" src={src} className="w-full h-full" />
       </div>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-        '@context': 'https://schema.org',
-        '@type': 'LocalBusiness',
-        address: address
-      }) }} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'LocalBusiness',
+            address: address,
+          }),
+        }}
+      />
     </section>
   );
 }

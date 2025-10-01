@@ -1,10 +1,11 @@
 import React from 'react';
 import './globals.css';
 import Header from './components/Header';
+import Sidebar from './components/Sidebar';
 
 export const metadata = {
   title: 'WebCreate Console',
-  description: 'Generate landing pages from descriptions (JP/EN)'
+  description: 'Generate landing pages from descriptions (JP/EN)',
 };
 
 type RootLayoutProps = { children: React.ReactNode; params?: Record<string, string> };
@@ -15,7 +16,10 @@ export default async function RootLayout({ children, params }: RootLayoutProps) 
     <html lang={locale}>
       <body>
         <Header />
-        <main className="p-6">{children}</main>
+        <div className="app-container">
+          <Sidebar />
+          <main style={{ minHeight: '80vh' }}>{children}</main>
+        </div>
       </body>
     </html>
   );

@@ -21,7 +21,8 @@
     "next-env.d.ts",
     "src",
     "pages",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "types"
   ],
   "exclude": [
     "node_modules"

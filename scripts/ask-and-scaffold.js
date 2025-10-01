@@ -12,9 +12,14 @@ const args = process.argv.slice(2);
 const argv = {};
 for (let i = 0; i < args.length; i++) {
   const a = args[i];
-  if (a === '--from-file' && args[i + 1]) { argv.fromFile = args[i + 1]; i++; }
-  else if (a === '--dry-run') { argv.dryRun = true; }
-  else if (a === '--help') { argv.help = true; }
+  if (a === '--from-file' && args[i + 1]) {
+    argv.fromFile = args[i + 1];
+    i++;
+  } else if (a === '--dry-run') {
+    argv.dryRun = true;
+  } else if (a === '--help') {
+    argv.help = true;
+  }
 }
 
 if (argv.help) {
@@ -23,11 +28,19 @@ if (argv.help) {
 }
 
 function slugify(s) {
-  return s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') || 'site';
+  return (
+    s
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/(^-|-$)/g, '') || 'site'
+  );
 }
 
 async function promptQuestions() {
-  const readline = require('readline').createInterface({ input: process.stdin, output: process.stdout });
+  const readline = require('readline').createInterface({
+    input: process.stdin,
+    output: process.stdout,
+  });
   const q = (str) => new Promise((res) => readline.question(str, res));
 
   const businessName = (await q('Business name (e.g. Sakura Bakery): ')) || 'Demo Business';
@@ -37,7 +50,10 @@ async function promptQuestions() {
   const primaryColor = (await q('Primary color (hex) [#0ea5a4]: ')) || '#0ea5a4';
   const contactEmail = (await q('Contact email: ')) || '';
   const servicesRaw = (await q('Comma-separated services offered: ')) || '';
-  const services = servicesRaw.split(',').map((s) => s.trim()).filter(Boolean);
+  const services = servicesRaw
+    .split(',')
+    .map((s) => s.trim())
+    .filter(Boolean);
 
   readline.close();
 
@@ -59,16 +75,26 @@ function makePayload(answers) {
     locale: answers.locale || 'en',
     theme: { primaryColor: answers.primaryColor || '#0ea5a4' },
     sections: [
-      { type: 'hero', headline: answers.businessName, subheadline: answers.tagline || answers.description },
-      ...(answers.services && answers.services.length ? [{ type: 'services', items: answers.services }] : []),
-      { type: 'contact', email: answers.contactEmail }
-    ]
+      {
+        type: 'hero',
+        headline: answers.businessName,
+        subheadline: answers.tagline || answers.description,
+      },
+      ...(answers.services && answers.services.length
+        ? [{ type: 'services', items: answers.services }]
+        : []),
+      { type: 'contact', email: answers.contactEmail },
+    ],
   };
 
   const copy = {
     hero: { headline: layout.sections[0].headline, subheadline: layout.sections[0].subheadline },
-    services: (answers.services || []).map((s, i) => ({ id: `svc-${i + 1}`, title: s, description: `We offer ${s}.` })),
-    contact: { email: answers.contactEmail }
+    services: (answers.services || []).map((s, i) => ({
+      id: `svc-${i + 1}`,
+      title: s,
+      description: `We offer ${s}.`,
+    })),
+    contact: { email: answers.contactEmail },
   };
 
   return { slug: answers.slug || 'site', layout, copy };
@@ -97,7 +123,11 @@ async function run() {
   // Call scaffold CLI by piping JSON to its stdin
   const cli = path.resolve(process.cwd(), 'packages/mcp-tools/dist/scaffold_project.js');
   if (!fs.existsSync(cli)) {
-    console.error('scaffold CLI not found at', cli, '\nPlease run pnpm -w -r run build to compile packages.');
+    console.error(
+      'scaffold CLI not found at',
+      cli,
+      '\nPlease run pnpm -w -r run build to compile packages.',
+    );
     process.exit(3);
   }
 
@@ -106,11 +136,18 @@ async function run() {
   child.stdin.end();
   child.on('exit', (code) => {
     if (code === 0) {
-      console.log('\nScaffold CLI finished successfully. Generated under generated/' + payload.slug + '/site.json');
+      console.log(
+        '\nScaffold CLI finished successfully. Generated under generated/' +
+          payload.slug +
+          '/site.json',
+      );
     } else {
       console.error('Scaffold CLI exited with code', code);
     }
   });
 }
 
-run().catch((err) => { console.error(err); process.exit(1); });
+run().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});

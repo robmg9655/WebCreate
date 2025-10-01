@@ -21,7 +21,13 @@ export default function Contact(): JSX.Element {
         </div>
       </form>
       <div className="mt-4 text-sm">
-        <a href="#" aria-label="LINE">LINE</a> · <a href="#" aria-label="Instagram">Instagram</a>
+        <a href="#" aria-label="LINE">
+          LINE
+        </a>{' '}
+        ·{' '}
+        <a href="#" aria-label="Instagram">
+          Instagram
+        </a>
       </div>
     </section>
   );

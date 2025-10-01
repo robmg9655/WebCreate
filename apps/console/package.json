@@ -4,21 +4,24 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:llm": "LOCAL_LLM_URL=http://127.0.0.1:5050/chat next dev",
+    "llm:server": "python scripts/gpt4all_server.py",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "bcrypt": "^6.0.0",
+    "clsx": "^1.2.1",
     "next": "14.0.0",
+    "next-intl": "2.4.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "next-intl": "2.4.0",
-    "tailwindcss": "^4.1.13",
-    "clsx": "^1.2.1"
+    "tailwindcss": "^4.1.13"
   },
   "devDependencies": {
-    "typescript": "^5.5.0",
+    "@types/node": "^20.11.0",
     "@types/react": "^18.2.21",
-    "@types/node": "^20.11.0"
+    "typescript": "^5.5.0"
   }
 }

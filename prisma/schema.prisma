@@ -1,0 +1,65 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  passwordHash String?
+  name      String?
+  createdAt DateTime @default(now())
+  sites     Site[] @relation("UserSites")
+  subscription Subscription? @relation("UserSubscription")
+  trial     Trial? @relation("UserTrial")
+  demoAttempts DemoAttempt[]
+}
+
+model Site {
+  id         String   @id @default(cuid())
+  user       User?    @relation("UserSites", fields: [userId], references: [id])
+  userId     String?
+  slug       String
+  title      String
+  meta       Json?
+  createdAt  DateTime @default(now())
+  watermark  Boolean  @default(true)
+  deployed   Boolean  @default(false)
+  previewPath String
+}
+
+model DemoAttempt {
+  id        String   @id @default(cuid())
+  user      User?    @relation(fields: [userId], references: [id])
+  userId    String?
+  ip        String?
+  usedAt    DateTime @default(now())
+}
+
+model Subscription {
+  id               String   @id @default(cuid())
+  user             User     @relation("UserSubscription", fields: [userId], references: [id])
+  userId           String   @unique
+  stripeCustomerId String?
+  status           String
+  currentPeriodEnd DateTime?
+}
+
+model Trial {
+  id         String @id @default(cuid())
+  user       User?  @relation("UserTrial", fields: [userId], references: [id])
+  userId     String? @unique
+  attempts   Int    @default(0)
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  action    String
+  meta      Json?
+  createdAt DateTime @default(now())
+}

@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import React, { useState } from 'react';
 
 export default function GeneratePage(): JSX.Element {
@@ -13,9 +13,19 @@ export default function GeneratePage(): JSX.Element {
     // purchase/mock a license if we don't have one yet
     if (!license) {
       setStatus('Purchasing license...');
-      const pay = await fetch('/api/payments', { method: 'POST', body: JSON.stringify({ email: email || 'client@example.com', plan: 'single-site', amount: 49 }) });
+      const pay = await fetch('/api/payments', {
+        method: 'POST',
+        body: JSON.stringify({
+          email: email || 'client@example.com',
+          plan: 'single-site',
+          amount: 49,
+        }),
+      });
       const pjson = await pay.json();
-      if (!pjson.ok) { setStatus('Payment failed'); return; }
+      if (!pjson.ok) {
+        setStatus('Payment failed');
+        return;
+      }
       setLicense(pjson.license);
     }
 
@@ -25,7 +35,10 @@ export default function GeneratePage(): JSX.Element {
     const w = await fetch('/api/write-copy', { method: 'POST', body: JSON.stringify({ layout }) });
     const copy = await w.json();
     setStatus('Scaffolding site...');
-    const s = await fetch('/api/scaffold', { method: 'POST', body: JSON.stringify({ layout, copy, slug: 'demo-site', license }) });
+    const s = await fetch('/api/scaffold', {
+      method: 'POST',
+      body: JSON.stringify({ layout, copy, slug: 'demo-site', license }),
+    });
     const result = await s.json();
     setStatus('Done: ' + result.path);
   }
@@ -36,7 +49,11 @@ export default function GeneratePage(): JSX.Element {
       <form onSubmit={onGenerate} className="mt-4 space-y-3">
         <label className="block">
           <span className="text-sm">Description (JP/EN/ES)</span>
-          <textarea className="w-full border rounded p-2 mt-1" value={text} onChange={(e) => setText(e.target.value)} />
+          <textarea
+            className="w-full border rounded p-2 mt-1"
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+          />
         </label>
         <label className="block">
           <span className="text-sm">Audio upload</span>
@@ -44,10 +61,16 @@ export default function GeneratePage(): JSX.Element {
         </label>
         <label className="block">
           <span className="text-sm">Your email (for receipt)</span>
-          <input className="w-full border rounded p-2 mt-1" value={email} onChange={(e) => setEmail(e.target.value)} />
+          <input
+            className="w-full border rounded p-2 mt-1"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
         </label>
         <div>
-          <button className="btn" type="submit">Generar</button>
+          <button className="btn" type="submit">
+            Generar
+          </button>
         </div>
       </form>
       <p className="mt-4">{status}</p>

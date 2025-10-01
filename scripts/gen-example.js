@@ -9,12 +9,12 @@ const site = {
   id: slug,
   title: '理髪店 Tabata',
   layout: {
-    sections: ['hero', 'services', 'gallery', 'pricing', 'map', 'contact']
+    sections: ['hero', 'services', 'gallery', 'pricing', 'map', 'contact'],
   },
   copy: {
     jp: { headline: '田端の理髪店へようこそ', cta: '予約する' },
-    en: { headline: 'Welcome to Tabata Barbers', cta: 'Book Now' }
-  }
+    en: { headline: 'Welcome to Tabata Barbers', cta: 'Book Now' },
+  },
 };
 fs.writeFileSync(path.join(siteDir, 'site.json'), JSON.stringify(site, null, 2));
 console.log('Generated example site at', siteDir);
