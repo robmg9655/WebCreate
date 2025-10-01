@@ -1,8 +1,18 @@
 /* Minimal reset (removed @tailwind directives for linter compatibility in this environment) */
 /* If you use Tailwind in your build, re-add @tailwind directives and enable the Tailwind PostCSS pipeline. */
-* { box-sizing: border-box; }
-html,body,#__next { margin:0; padding:0; }
-img { max-width:100%; display:block }
+* {
+  box-sizing: border-box;
+}
+html,
+body,
+#__next {
+  margin: 0;
+  padding: 0;
+}
+img {
+  max-width: 100%;
+  display: block;
+}
 
 html,
 body,
@@ -15,7 +25,7 @@ body {
 }
 
 /* App-wide color tokens and simple utilities */
-:root{
+:root {
   --bg: #f7fafc; /* gray-50 */
   --card: #ffffff;
   --muted: #6b7280;
@@ -27,7 +37,7 @@ body {
   color: #0f172a; /* slate-900 */
 }
 
-.app-container{
+.app-container {
   max-width: 1100px;
   margin: 0 auto;
   display: grid;
@@ -36,8 +46,32 @@ body {
   padding: 24px;
 }
 
-.card{background:var(--card);border-radius:10px;padding:18px;box-shadow:0 1px 2px rgba(15,23,42,0.04);}
-.muted{color:var(--muted)}
-.btn{background:var(--accent);color:white;padding:8px 12px;border-radius:8px;text-decoration:none;display:inline-block}
-.nav-link{display:block;padding:8px 10px;border-radius:8px;color:var(--muted);text-decoration:none}
-.nav-link.active{background:#eef2ff;color:var(--accent);font-weight:600}
+.card {
+  background: var(--card);
+  border-radius: 10px;
+  padding: 18px;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+.muted {
+  color: var(--muted);
+}
+.btn {
+  background: var(--accent);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  display: inline-block;
+}
+.nav-link {
+  display: block;
+  padding: 8px 10px;
+  border-radius: 8px;
+  color: var(--muted);
+  text-decoration: none;
+}
+.nav-link.active {
+  background: #eef2ff;
+  color: var(--accent);
+  font-weight: 600;
+}

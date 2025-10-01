@@ -9,6 +9,7 @@ Local dev instructions (after installing deps):
 - pnpm -C apps/console dev
 
 Visit:
+
 - / (marketing)
 - /trial (one free preview)
 - /pricing (subscribe to Pro)

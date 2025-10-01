@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import Link from 'next/link';
 
 export default function AuthPage() {
   return (
@@ -8,5 +8,5 @@ export default function AuthPage() {
         <a href="/api/auth/signin">Iniciar sesión (email)</a>
       </div>
     </div>
-  )
+  );
 }
